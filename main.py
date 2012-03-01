@@ -4,15 +4,16 @@ import time
 import gvoice
 import ConfigParser
 import smtplib
+import re
 from email.mime.text import MIMEText
 
-URL = ""
+URL = "https://www.blm.gov/az/paria/hikingcalendar.cfm?areaid=2"
 SMTP_SERVER = 'smtp.gmail.com:587'
 
 # You need to create a base has to compare against. Use the instructions in the README to create this.
-BASE_HASH = ''
+BASE_HASH = 'f1346bffd62aa9ae775b963810bc5d12818f7de4fd19a9cd631c9dab'
 
-INTERVAL = 10
+INTERVAL = 1
 # Comma separated list of phone numbers that you want notified
 PHONE_NUMBERS = []
 # Comma separated list of emails that you want notified
@@ -22,6 +23,7 @@ config = ConfigParser.RawConfigParser()
 config.read('config.cfg')
 
 def is_same(content):
+	print hashlib.sha224(content).hexdigest()
 	return hashlib.sha224(content).hexdigest() == BASE_HASH
 	
 def send_message():
@@ -51,6 +53,8 @@ def send_message():
 while True:
 	print "Checking {0} for changes...".format(URL)
 	page_content = urllib2.urlopen(URL).read()
+	page_content = re.sub("As of.*</div>", "</div>", page_content)
+	page_content = re.sub(".*calendaravailable.*", "", page_content)
 	if not is_same(page_content):
 		print "Change detected! Sending notification messages."
 		send_message()
@@ -58,7 +62,7 @@ while True:
 	else:
 		print "No change yet. Sleeping for {0} seconds".format(INTERVAL)
 		time.sleep(INTERVAL)
-	
+		
 	
 	
 
