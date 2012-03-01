@@ -50,7 +50,7 @@ def send_message():
 	
 while True:
 	print "Checking {0} for changes...".format(URL)
-	page_content = urllib2.urlopen.(URL).read()
+	page_content = urllib2.urlopen(URL).read()
 	if not is_same(page_content):
 		print "Change detected! Sending notification messages."
 		send_message()
