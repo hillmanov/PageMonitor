@@ -11,7 +11,7 @@ URL = "https://www.blm.gov/az/paria/hikingcalendar.cfm?areaid=2"
 SMTP_SERVER = 'smtp.gmail.com:587'
 
 # You need to create a base has to compare against. Use the instructions in the README to create this.
-BASE_HASH = 'f1346bffd62aa9ae775b963810bc5d12818f7de4fd19a9cd631c9dab'
+BASE_HASH = 'aebc20b9b5caf36b89e0071e1217614eb844d1fa22078b39334932c4'
 
 INTERVAL = 1
 # Comma separated list of phone numbers that you want notified
